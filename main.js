@@ -18,11 +18,11 @@ app.use('/', tasksRouter);
 app.get('/', (req, res) => {
     const tasks = [{
         task: "Remove nailpolish",
-        date: Date.now
+        createdAt: new Date
     },
     {
         task: "Do laundry",
-        date: Date.now
+        createdAt: new Date
     }]
     res.render('index', { tasks: tasks });
 });
