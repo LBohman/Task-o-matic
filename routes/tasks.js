@@ -24,14 +24,14 @@ router.post('/add', async (req, res) => {
 
 router.get('/edit/:id', async (req, res) => {
     const task = await Task.findOne({ _id: req.params.id });
-    console.log(task);
     res.render('edit.ejs', { task: task });
 });
 
 router.post('/edit', async (req, res) => {
     try{
-        await Task.updateOne({ _id: req.body.id }, { task: req.body.task });
-        console.log(req.body.task);
+        await Task.updateOne({ _id: req.body.id }, { 
+            task: req.body.task 
+        });
     } catch (err) {
         console.log(err);
     }
