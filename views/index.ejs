@@ -13,14 +13,14 @@
         <%- include('_taskInput') %>
 
         <ul>
-            <% tasks.forEach(task => { %>
+            <% for(let i = 0; i < data.length; i++) {%>
                 <li>
-                    <span><%= task.createdAt.toLocaleDateString() %></span>
-                    <%= task.task %>
+                    <span><%= data[i].date %></span>
+                    <span><%= data[i].task %></span>
                     <a href="/edit">Edit</a>
                     <a href="/delete">Delete</a>
                 </li>
-                <% }) %>
+                <% } %>
         </ul>
     </div>
 </body>

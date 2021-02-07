@@ -12,33 +12,17 @@ app.use(express.static(__dirname + '/public'));
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
+//app.use(express.urlencoded({ extended: false}));
 
 app.use('/', tasksRouter);
 
-app.get('/', (req, res) => {
-    const tasks = [{
-        task: "Remove nailpolish",
-        createdAt: new Date
-    },
-    {
-        task: "Do laundry",
-        createdAt: new Date
-    }]
-    res.render('index', { tasks: tasks });
+
+mongoose.connect(process.env.CONNECTIONSTRING, {
+    useNewUrlParser: true, useUnifiedTopology: true
+}, (err) => {
+    if(err) return;
 });
 
-app.post('/', (req, res) => {
-
+app.listen(3000, () => {
+    console.log('App is up and running...');
 })
-
-
-mongoose.connect(process.env.CONNECTIONSTRING,
-    {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    }, (err) => {
-        if(err) return;
-        app.listen(process.env.PORT || 3000, () => {
-            console.log('App is up and running...');
-        })
-    })

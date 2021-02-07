@@ -1,22 +1,41 @@
 const express = require('express');
 const router = express.Router();
+const mongoose = require('mongoose');
+const Task = require('../model/task');
+require('dotenv').config();
 
-router.get('/tasks', (req, res) => {
-    res.send('in tasks')
+
+router.get('/', async (req, res) => {
+    const data = await Task.find();
+    res.render('index.ejs', { data: data });
 });
 
-router.post('/new', (req, res) => {
-    const tasks = [{
-        task: "Remove nailpolish",
-        createdAt: new Date
-    },
-    {
-        task: "Press submit and post to /new",
-        createdAt: new Date
-    }]
-    res.render('index', { tasks: tasks });
-    console.log('Add button clicked');
+router.post('/add', async (req, res) => {
+    console.log(req.body.task);
+    try{
+        await new Task({
+            task: req.body.task
+        }).save();
+        res.redirect('/');
+    } catch (err) {
+        //console.log(err);
+    }
 });
+
+
+/* router.post('/add', async (req, res) => {
+    console.log(req.body.task);
+    let task = new Task({
+        task: req.body.task,
+        date: req.body.date
+    });
+    try{
+        await task.save();
+        res.redirect('/');
+    } catch (e) {
+        console.log(e);
+    }
+}); */
 
 router.get('/edit', (req, res) => {
     console.log('Edit link pressed');
