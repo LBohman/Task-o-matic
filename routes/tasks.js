@@ -11,44 +11,35 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/add', async (req, res) => {
-    console.log(req.body.task);
     try{
         await new Task({
             task: req.body.task
         }).save();
         res.redirect('/');
     } catch (err) {
-        //console.log(err);
+        console.log(err);
     }
 });
 
 
-/* router.post('/add', async (req, res) => {
-    console.log(req.body.task);
-    let task = new Task({
-        task: req.body.task,
-        date: req.body.date
-    });
+router.get('/edit/:id', async (req, res) => {
+    const task = await Task.findOne({ _id: req.params.id });
+    console.log(task);
+    res.render('edit.ejs', { task: task });
+});
+
+router.post('/edit', async (req, res) => {
     try{
-        await task.save();
-        res.redirect('/');
-    } catch (e) {
-        console.log(e);
+        await Task.updateOne({ _id: req.body.id }, { task: req.body.task });
+        console.log(req.body.task);
+    } catch (err) {
+        console.log(err);
     }
-}); */
-
-router.get('/edit', (req, res) => {
-    console.log('Edit link pressed');
-    res.render('edit.ejs');
-});
-
-router.post('/edit', (req, res) => {
-    console.log('Changes saved.');
     res.redirect('/');
 });
 
-router.get('/delete', (req, res) => {
-    console.log('Delete link pressed');
+router.get('/delete/:id', async (req, res) => {
+    await Task.deleteOne({ _id: req.params.id });
     res.redirect('/');
 });
 

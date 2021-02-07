@@ -17,8 +17,8 @@
                 <li>
                     <span><%= task.date.toLocaleDateString() %></span>
                     <span><%= task.task %></span>
-                    <a href="/edit">Edit</a>
-                    <a href="/delete">Delete</a>
+                    <a href="/edit/<%= task._id %>">Edit</a>
+                    <a href="/delete/<%= task._id %>">Delete</a>
                 </li>
                 <% }) %>
         </ul>
