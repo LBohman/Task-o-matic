@@ -1,4 +1,7 @@
-body {
-    background-color: royalblue;
-    color: coral;
+.card {
+    width: 300px;
+}
+
+.form-control {
+    max-width: 500px;
 }
