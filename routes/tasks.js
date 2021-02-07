@@ -20,6 +20,11 @@ router.post('/new', (req, res) => {
 
 router.get('/edit', (req, res) => {
     console.log('Edit link pressed');
+    res.render('edit.ejs');
+});
+
+router.post('/edit', (req, res) => {
+    console.log('Changes saved.');
     res.redirect('/');
 });
 
